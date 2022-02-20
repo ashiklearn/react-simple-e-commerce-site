@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import fakeData from "../../fakeData";
-import happyImageGif from '../../images/giphy.gif';
+import happyImageGif from "../../images/giphy.gif";
 
 import {
   getDatabaseCart,
@@ -12,13 +13,16 @@ import Reviewitem from "../Reviewitem/Reviewitem";
 
 const Review = () => {
   const [cart, setCart] = useState([]);
-  const [orderPlaced,setOrderPlaced] = useState(false);
-const handlePlaceOrder = () => {
-setCart([]);
-setOrderPlaced(true);
-    processOrder();
-    console.log('Order Place');
-}
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const history = useHistory()
+
+  const handleProceedCheckout = () => {
+history.push('/shipment');
+    // setCart([]);
+    // setOrderPlaced(true);
+    // processOrder();
+    // console.log("Order Place");
+  };
 
   const removeProduct = (productkey) => {
     // console.log('remove clicked',productkey);
@@ -38,28 +42,26 @@ setOrderPlaced(true);
   }, []);
 
   let thankyou;
-  if(orderPlaced){
-thankyou =  <img src={happyImageGif} alt="" />
-  } 
+  if (orderPlaced) {
+    thankyou = <img src={happyImageGif} alt="" />;
+  }
   return (
     <div className="twin-container">
       <div className="product-container">
-        {
-        cart.map(pd =>
+        {cart.map((pd) => (
           <Reviewitem
             key={pd.key}
             removeProduct={removeProduct}
             product={pd}
           ></Reviewitem>
-        )
-        }
-        {
-           thankyou
-        }
+        ))}
+        {thankyou}
       </div>
       <div className="cart-container">
         <Cart cart={cart}>
-          <button onClick={handlePlaceOrder} className="review-button">Place Order</button>
+          <button onClick={handleProceedCheckout} className="review-button">
+            Proceed Checkout
+          </button>
         </Cart>
       </div>
     </div>

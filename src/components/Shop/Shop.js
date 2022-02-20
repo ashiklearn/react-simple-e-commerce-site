@@ -6,7 +6,7 @@ import {addToDatabaseCart, getDatabaseCart} from '../../utilities/databaseManage
 import { Link } from 'react-router-dom';
 import './Shop.css';
 const Shop = () => {
-    const firstData = fakeData.slice(0,10);
+    const firstData = fakeData.slice(0,20);
     const[products,setProducts] = useState(firstData);
 // console.log(products);
     const [cart,setCart] = useState([]);
